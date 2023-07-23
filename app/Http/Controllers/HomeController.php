@@ -16,6 +16,11 @@ class HomeController extends Controller
     {
         $playstation = Playstation::with('listgame')->get();
 
-        return view('dashboard', compact('playstation'));
+        return view('home', compact('playstation'));
+    }
+
+    public function howtobook()
+    {
+        return view('howtobook');
     }
 }

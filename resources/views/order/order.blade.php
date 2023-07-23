@@ -28,32 +28,32 @@
                         @endif
                         <thead>
                             <tr>
-                                <th class="border px-4 py-2">No</th>
-                                <th class="border px-4 py-2">Booking Code</th>
-                                <th class="border px-4 py-2">Name</th>
-                                <th class="border px-4 py-2">Playstation</th>
-                                <th class="border px-4 py-2">Booking Date</th>
-                                <th class="border px-4 py-2">Booking Duration</th>
-                                <th class="border px-4 py-2">Start Time</th>
-                                <th class="border px-4 py-2">End Time</th>
-                                <th class="border px-4 py-2">Order Proofen</th>
-                                <th class="border px-4 py-2">Status</th>
-                                <th class="border px-4 py-2">Action</th>
+                                <th class="border px-auto py-2">No</th>
+                                <th class="border px-auto py-2">Booking Code</th>
+                                <th class="border px-auto py-2">Name</th>
+                                <th class="border px-auto py-2">Playstation</th>
+                                <th class="border px-auto py-2">Date</th>
+                                <th class="border px-auto py-2">Duration</th>
+                                <th class="border px-auto py-2">Start Time</th>
+                                <th class="border px-auto py-2">End Time</th>
+                                <th class="border px-auto py-2">Order Proofen</th>
+                                <th class="border px-auto py-2">Status</th>
+                                <th class="border px-auto py-2">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach ($booking as $book)
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                                    <td class="border px-4 py-2">{{ $book->booking_code }}</td>
-                                    <td class="border px-4 py-2">{{ $book->user->name }}</td>
-                                    <td class="border px-4 py-2">{{ $book->playstation->name }}</td>
-                                    <td class="border px-4 py-2">{{ $book->booking_date }}</td>
-                                    <td class="border px-4 py-2">{{ $book->booking_duration }} jam</td>
-                                    <td class="border px-4 py-2">{{ $book->start_time }}</td>
-                                    <td class="border px-4 py-2">{{ $book->end_time }}</td>
-                                    <td class="border px-4 py-2">
+                                    <td class="border px-4 py-2 text-center">{{ $loop->iteration }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->booking_code }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->user->name }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->playstation->name }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->booking_date }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->booking_duration }} jam</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->start_time }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->end_time }}</td>
+                                    <td class="border px-4 py-2 text-center">
                                         <!-- File Upload Form -->
                                         @if ($book->payment)
                                             <!-- Tampilkan gambar payment jika ada -->
@@ -107,10 +107,34 @@
                                             </form>
                                         @endif
                                     </td>
-                                    <td class="border px-4 py-2">{{ $book->status }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $book->status }}</td>
                                     <td class="border px-4 py-2">
-                                        <a href="{{ route('order.card', ['id' => $book->id]) }}"
-                                            class="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded">View</a>
+                                        @if ($book->payment)
+                                            <a href="{{ route('order.view', ['id' => $book->id]) }}"
+                                                class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">View</a>
+                                        @else
+                                            <div class="flex">
+                                                <a href="{{ route('order.view', ['id' => $book->id]) }}"
+                                                    class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1 px-4 rounded mr-3">View</a>
+                                                <!-- Form untuk menghapus data booking -->
+                                                <form id="delete-form"
+                                                    action="{{ route('order.delete', ['id' => $book->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="return confirmDelete()"
+                                                        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded">Hapus</button>
+                                                </form>
+
+                                                <!-- JavaScript untuk konfirmasi sebelum menghapus -->
+                                                <script>
+                                                    function confirmDelete() {
+                                                        var result = confirm("Are you sure you want to delete this booking?");
+                                                        return result; // akan return true jika user menekan OK, dan false jika user menekan Cancel
+                                                    }
+                                                </script>
+                                            </div>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

@@ -9,7 +9,7 @@
             <div class="flex justify-center items-center">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 px-12 mb-5">
                     <h1 class="text-center font-bold pb-1 text-2xl text-green-500">Transaction Information!</h1>
-                    <p class="pb-5 text-center">Pembayaran anda berstatus Pending <span
+                    <p class="pb-5 text-center">Pembayaran anda berstatus <span
                             class="font-bold">{{ $booking->status }}</span></p>
                     <div class="grid grid-cols-2 gap-2 mb-4">
                         <div class="font-bold">Booking Code</div>
@@ -27,13 +27,67 @@
                         <div class="font-semibold">Status</div>
                         <div>: <span class="text-green-600 font-semibold">{{ $booking->status }}</span></div>
                     </div>
-                    <p class="py-2 text-center text-gray-600 italic">Keterangan: Silahkan melakukan pembayaran jika belum melakukan pembayaran <span
-                            class="font-bold text-black">qris</span> pada gambar dibawah ini dan menguploadnya di
-                        history order!</p>
-                    <div class="flex justify-center items-center mb-4">
-                        <img src="{{ asset('assets/images/qris.jpg') }}" alt="" width="350px" class="mx-auto">
-                    </div>
-                    <a href="/order" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">Back</a>
+                    @if ($booking->payment)
+                        @if ($booking->status == 'Belum dibayar')
+                            <p class="pb-2 text-center text-gray-600 italic">Keterangan: Silahkan menunggu response admin jika anda suda
+                                melakukan pembayaran</p>
+                            <div class="flexjustify-center items-center pt-2">
+                                <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
+                                    class="mx-auto">
+                            </div>
+                            <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
+                        @endif
+                        @if ($booking->status == 'Sudah dibayar')
+                            <p class="py-2 text-center text-gray-600 italic">Keterangan: Anda sudah melakukan
+                                pembayaran
+                                <span class="font-bold text-black">qris</span> silahkan datang tepat waktu!
+                            </p>
+                            <div class="flexjustify-center items-center pt-2">
+                                <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
+                                    class="mx-auto">
+                            </div>
+                            <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
+                        @endif
+                        @if ($booking->status == 'Digunakan')
+                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keteranga: Anda sedang memainkan
+                                playstation yang anda booking
+                            </p>
+                            <div class="flexjustify-center items-center pt-2">
+                                <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
+                                    class="mx-auto">
+                            </div>
+                            <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
+                        @endif
+                        @if ($booking->status == 'Selesai')
+                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keterangan: Anda Telah Menyelesaikan
+                                booking
+                            </p>
+                            <div class="flexjustify-center items-center pt-2">
+                                <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
+                                    class="mx-auto">
+                            </div>
+                            <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
+                        @endif
+                    @else
+                        <div class="pt-2 pb-6">
+                            <p class="text-center text-gray-600 italic">Keterangan: Silahkan melakukan pembayaran
+                                jika
+                                belum melakukan pembayaran <span class="font-bold text-black">qris</span> pada gambar
+                                dibawah ini dan menguploadnya di
+                                history order!</p>
+                            <p class="text-center text-gray-600 italic">Silahkan anda melakukan pembayaran dalam waktu
+                                maksimal <span class="font-bold text-black">10 menit</span> jika tidak, admin akan
+                                menghapus bookingan anda!</p>
+                            <p class="text-center text-gray-600 italic">Setelah melakukan pembayaran anda tidak
+                                dapat menghapus bookingan yang anda buat</p>
+                        </div>
+                        <div class="flex justify-center items-center pb-10">
+                            <img src="{{ asset('assets/images/qris.jpg') }}" alt="" width="350px"
+                                class="mx-auto">
+                        </div>
+                    @endif
+                    <a href="/order"
+                        class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">Back</a>
                 </div>
             </div>
         </div>

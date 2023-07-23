@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-2xl font-bold text-black leading-tight text-center">
             Choose your playstation and rentall it!
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-black">
-                    <h1 class="text-center text-3xl font-semibold pb-2">Website Booking Playstation</h1>
+                    <h1 class="text-center text-2xl font-semibold pb-2">Website Booking Playstation</h1>
                     <p class="text-center">Menyediakan layanan untuk booking secara online dengan menggunkaan website</p>
                     <p class="text-center">Silahkan pilih playstations yang akan kalian mainkan</p>
                 </div>

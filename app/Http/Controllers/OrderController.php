@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
+    public function index(string $id)
+    {
+
+        $booking = Booking::findOrFail($id);
+
+        return view('order.card', compact('booking'));
+    }
+
     /**
      * Order user's account.
      */
@@ -79,11 +87,18 @@ class OrderController extends Controller
         return redirect()->route('order.order')->with(['success' => 'Booking payment updated successfully!']);
     }
 
-    public function index(string $id)
+    public function delete(string $id)
     {
-
         $booking = Booking::findOrFail($id);
 
-        return view('order.card', compact('booking'));
+        // Hapus file payment dari storage jika ada
+        if ($booking->payment) {
+            Storage::delete('public/' . $booking->payment);
+        }
+
+        $booking->delete();
+
+        return redirect()->route('order.order')->with(['success' => 'Booking deleted successfully!']);
     }
+    
 }

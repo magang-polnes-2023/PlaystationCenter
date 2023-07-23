@@ -5,15 +5,19 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="/">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="/" :active="request()->routeIs('/')">
+                        <img src="{{ asset('assets/images/logo.1.png') }}" alt="" class="block h-9 w-auto fill-current text-gray-800">
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Playstation Center') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
+                        {{ __('How To Booking') }}
                     </x-nav-link>
                 </div>
             </div>
