@@ -28,7 +28,7 @@ class PlaystationResource extends Resource
 {
     protected static ?string $model = Playstation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-play';
 
     protected static function getNavigationLabel(): string
     {
