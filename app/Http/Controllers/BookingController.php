@@ -16,24 +16,24 @@ class BookingController extends Controller
     {
         $playstation = Playstation::find($id);
         $listgame = Listgame::all();
-        $bookedTimes = Booking::select('start_time', 'end_time')->get();
         $user = Auth::User();
-        $prefix = 'ORD-PS-'; // Prefix kode booking
+        $prefix = 'ORD-PS-';
 
-        // Ambil order terakhir berdasarkan id secara descending
         $latestBooking = Booking::orderBy('id', 'desc')->first();
 
-        // Jika ada order sebelumnya, ambil nomor urut dari id terakhir dan tambahkan 1
         if ($latestBooking) {
             $bookingNumber = intval(substr($latestBooking->booking_code, strlen($prefix)));
             $bookingNumber++;
         } else {
-            // Jika tidak ada order sebelumnya, mulai dari 1
             $bookingNumber = 1;
         }
 
-        // Buat kode booking dengan format "ordps0001"
         $bookingCode = $prefix . str_pad($bookingNumber, 4, '0', STR_PAD_LEFT);
+
+        $bookedTimes = Booking::select('booking_date', 'start_time', 'end_time')
+                    ->where('playstation_id', $playstation->id)
+                    ->whereNotIn('status', ['Selesai'])
+                    ->get();
 
         return view('order.booking', compact('playstation', 'listgame', 'user', 'bookedTimes', 'bookingCode'));
     }

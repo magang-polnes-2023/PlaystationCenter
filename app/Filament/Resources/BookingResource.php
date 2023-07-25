@@ -57,11 +57,31 @@ class BookingResource extends Resource
                             ->label('Nama User')
                             ->relationship('user', 'name')
                             ->required(),
+                        TextInput::make('booking_code')
+                            ->afterStateHydrated(function (TextInput $component, $state) {
+                                $prefix = 'ORD-PS-';
+
+                                $latestBooking = Booking::orderBy('id', 'desc')->first();
+
+                                if ($latestBooking) {
+                                    $bookingNumber = intval(substr($latestBooking->booking_code, strlen($prefix)));
+                                    $bookingNumber++;
+                                } else {
+                                    $bookingNumber = 1;
+                                }
+
+                                $bookingCode = $prefix . str_pad($bookingNumber, 4, '0', STR_PAD_LEFT);
+
+                                $component->state($bookingCode);
+                            })
+                            ->label('Booking Code')
+                            ->unique()
+                            ->required(),
                         DatePicker::make('booking_date')
                             ->label('Tanggal Booking')
                             ->required(),
                         TextInput::make('booking_duration')
-                            ->label('Durasi Booking (satuan jam)')
+                            ->label('Durasi Booking (satuan jam')
                             ->required()
                             ->numeric(),
                         TimePicker::make('start_time')
@@ -98,6 +118,9 @@ class BookingResource extends Resource
                 TextColumn::make('playstation.name')
                     ->searchable(),
                 TextColumn::make('user.name')
+                    ->searchable(),
+                TextColumn::make('booking_code')
+                    ->label('Booking Code')
                     ->searchable(),
                 TextColumn::make('booking_date')
                     ->Label('Tanggal Booking'),

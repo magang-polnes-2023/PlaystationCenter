@@ -5,8 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="/" :active="request()->routeIs('/')">
-                        <img src="{{ asset('assets/images/logo.1.png') }}" alt="" class="block h-9 w-auto fill-current text-gray-800">
+                    <a href="/" :active="request() - > routeIs('/')">
+                        <img src="{{ asset('assets/images/logo.1.png') }}" alt=""
+                            class="block h-9 w-auto fill-current text-gray-800">
                     </a>
                 </div>
                 <!-- Navigation Links -->
@@ -105,14 +106,19 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @guest
-                <!-- Tampilkan tautan login jika pengguna belum login -->
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Login') }}
+                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    {{ __('Playstation Center') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
+                    {{ __('How To Booking') }}
                 </x-responsive-nav-link>
             @else
                 <!-- Tampilkan tautan menu jika pengguna sudah login -->
                 <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                    {{ __('Home') }}
+                    {{ __('Playstation Center') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
+                    {{ __('How To Booking') }}
                 </x-responsive-nav-link>
             @endguest
         </div>
@@ -143,12 +149,12 @@
                 </div>
             @else
                 <!-- Tampilkan tautan login jika pengguna belum login -->
-                <div class="px-4 mt-3 space-y-1">
+                <div>
                     <x-responsive-nav-link :href="route('login')">
                         {{ __('Login') }}
                     </x-responsive-nav-link>
                 </div>
-                <div class="px-4 mt-3 space-y-1">
+                <div>
                     <x-responsive-nav-link :href="route('register')">
                         {{ __('Register') }}
                     </x-responsive-nav-link>
