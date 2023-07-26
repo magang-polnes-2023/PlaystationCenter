@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-blue-300 border-b border-gray-100 bg-opacity-20">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,19 +6,19 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/" :active="request() - > routeIs('/')">
-                        <img src="{{ asset('assets/images/logo.1.png') }}" alt=""
-                            class="block h-9 w-auto fill-current text-gray-800">
+                        <img src="{{ asset('assets/images/icon.png') }}" alt=""
+                            class="block h-9 w-auto fill-current">
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Playstation Center') }}
+                        <p class="text-white hover:text-blue-100">Playstation Center</p>
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
-                        {{ __('How To Booking') }}
+                        <p class="text-white hover:text-blue-100">How To Booking</p>
                     </x-nav-link>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                         <x-slot name="trigger">
                             <!-- Code for the trigger button -->
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
@@ -58,7 +58,7 @@
                             </x-dropdown-link>
 
                             <x-dropdown-link :href="route('order.order')">
-                                {{ __('Order') }}
+                                {{ __('Booking History') }}
                             </x-dropdown-link>
 
                             <!-- Authentication -->
@@ -76,11 +76,11 @@
                 @else
                     <!-- Code for the navigation menu if the user is not logged in -->
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 mr-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Login') }}
                     </a>
                     <a href="{{ route('register') }}"
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Register') }}
                     </a>
                 @endif

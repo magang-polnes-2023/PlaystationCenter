@@ -1,13 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-center text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-center text-xl text-black leading-tight">
             Input Form to order
         </h2>
     </x-slot>
-    <div class="my-10">
+    <div class="my-10 bg-cover bg-fixed bg-center h-full"
+    style="background-image: url('{{ asset('/assets/images/bg.png') }}'); ">
         <div x-data="calc()" x-effect="updateEndTime" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-7">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
                     <div class="mb-4">
                         <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
                         <input type="text" id="user_id" name="user_id"
@@ -35,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
                     <form action="{{ route('card') }}" method="POST">
                         @if ($errors->any())
                             <div class="bg-red-500 text-white p-4 mt-3 rounded" role="alert" id="danger-alert">
@@ -113,9 +114,9 @@
                 </div>
             </div>
             @if (count($bookedTimes) > 0)
-                <div class="my-5">
+                <div class="mt-5 mb-10">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2">
+                        <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8">
                             <!-- Display bookedTimes using <p> elements -->
                             <div class="text-center">
                                 <h1 class="font-semibold text-black">Booked List</h1>

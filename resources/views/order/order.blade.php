@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
-            Order History
+        <h2 class="font-semibold text-2xl text-black leading-tight text-center">
+            Booking History
         </h2>
     </x-slot>
 
     <div class="py-12">
-
         <div class="container mx-auto mt-8">
             <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <table class="table-auto w-11/12 mx-auto my-10">
+                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg">
+                    <table class="table-auto w-11/12 mx-auto my-10 border-collapse">
                         @if (Session::has('error'))
                             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                                 role="alert">
@@ -28,32 +27,26 @@
                         @endif
                         <thead>
                             <tr>
-                                <th class="border px-auto py-2">No</th>
-                                <th class="border px-auto py-2">Booking Code</th>
-                                <th class="border px-auto py-2">Name</th>
-                                <th class="border px-auto py-2">Playstation</th>
-                                <th class="border px-auto py-2">Date</th>
-                                <th class="border px-auto py-2">Duration</th>
-                                <th class="border px-auto py-2">Start Time</th>
-                                <th class="border px-auto py-2">End Time</th>
-                                <th class="border px-auto py-2">Order Proofen</th>
-                                <th class="border px-auto py-2">Status</th>
-                                <th class="border px-auto py-2">Action</th>
+                                <th class="border border-black px-auto py-2">No</th>
+                                <th class="border border-black px-auto py-2">Booking Code</th>
+                                <th class="border border-black px-auto py-2">Name</th>
+                                <th class="border border-black px-auto py-2">Playstation</th>
+                                <th class="border border-black px-auto py-2">Date and Time</th>
+                                <th class="border border-black px-auto py-2">Order Proofen</th>
+                                <th class="border border-black px-auto py-2">Status</th>
+                                <th class="border border-black px-auto py-2">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach ($booking as $book)
                                 <tr>
-                                    <td class="border px-4 py-2 text-center">{{ $loop->iteration }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->booking_code }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->user->name }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->playstation->name }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->booking_date }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->booking_duration }} jam</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->start_time }}</td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->end_time }}</td>
-                                    <td class="border px-4 py-2 text-center">
+                                    <td class="border border-black px-4 py-2 text-center">{{ $loop->iteration }}</td>
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->booking_code }}</td>
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->user->name }}</td>
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->playstation->name }}</td>
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->booking_date }}, {{ $book->start_time }} - {{ $book->end_time }}</td>
+                                    <td class="border border-black px-4 py-2 text-center">
                                         <!-- File Upload Form -->
                                         @if ($book->payment)
                                             <!-- Tampilkan gambar payment jika ada -->
@@ -107,8 +100,8 @@
                                             </form>
                                         @endif
                                     </td>
-                                    <td class="border px-4 py-2 text-center">{{ $book->status }}</td>
-                                    <td class="border px-4 py-2">
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->status }}</td>
+                                    <td class="border border-black px-4 py-2">
                                         @if ($book->payment)
                                             <a href="{{ route('order.view', ['id' => $book->id]) }}"
                                                 class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">View</a>
@@ -116,7 +109,6 @@
                                             <div class="flex">
                                                 <a href="{{ route('order.view', ['id' => $book->id]) }}"
                                                     class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1 px-4 rounded mr-3">View</a>
-                                                <!-- Form untuk menghapus data booking -->
                                                 <form id="delete-form"
                                                     action="{{ route('order.delete', ['id' => $book->id]) }}"
                                                     method="POST">
@@ -126,11 +118,10 @@
                                                         class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded">Hapus</button>
                                                 </form>
 
-                                                <!-- JavaScript untuk konfirmasi sebelum menghapus -->
                                                 <script>
                                                     function confirmDelete() {
                                                         var result = confirm("Are you sure you want to delete this booking?");
-                                                        return result; // akan return true jika user menekan OK, dan false jika user menekan Cancel
+                                                        return result;
                                                     }
                                                 </script>
                                             </div>
