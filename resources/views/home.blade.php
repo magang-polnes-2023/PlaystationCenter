@@ -7,7 +7,7 @@
         </x-slot>
         <div class="my-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white bg-opacity-80 text-lg overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-black">
                         <h1 class="text-center text-xl font-semibold pb-2">Website Booking Playstation</h1>
                         <p class="text-center">Menyediakan layanan untuk booking secara online dengan menggunkaan website
@@ -21,7 +21,7 @@
             @foreach ($playstation as $ps)
                 @if ($ps->status === 'tersedia')
                     <div x-data="{ 'isModalOpen': false }" x-on:keydown.escape="isModalOpen=false"
-                        class="max-w-xl mx-auto sm:max-w-md md:max-w-xs bg-white rounded-lg shadow-md">
+                        class="max-w-xl mx-auto sm:max-w-md md:max-w-xs bg-white bg-opacity-80 rounded-lg shadow-md">
                         <img src="{{ asset('storage/' . $ps->image) }}"
                             class="w-full h-32 sm:h-40 object-cover rounded-t-lg">
                         <div class="p-4">

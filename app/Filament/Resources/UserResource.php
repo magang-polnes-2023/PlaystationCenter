@@ -46,8 +46,7 @@ class UserResource extends Resource
                         TextInput::make('name')
                             ->required(),
                         TextInput::make('email')
-                            ->email()
-                            ->unique()
+                            ->email()   
                             ->required(),
                         Select::make('role')
                             ->options([

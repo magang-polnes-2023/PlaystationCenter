@@ -114,7 +114,7 @@
                 </div>
             </div>
             @if (count($bookedTimes) > 0)
-                <div class="mt-5 mb-10">
+                <div class="my-5">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8">
                             <!-- Display bookedTimes using <p> elements -->

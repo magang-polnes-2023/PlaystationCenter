@@ -1,4 +1,6 @@
-<nav x-data="{ open: false }" class="bg-blue-300 border-b border-gray-100 bg-opacity-20">
+<nav x-data="{ open: false }"
+    class="border-b sticky top-0 transition bg-cover bg-fixed bg-top backdrop-blur-sm"
+    style="background-image: url('{{ asset('/assets/images/bg.png') }}');">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -74,13 +76,12 @@
                         </x-slot>
                     </x-dropdown>
                 @else
-                    <!-- Code for the navigation menu if the user is not logged in -->
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center px-3 py-2 mr-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 mr-3 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white bg-opacity-80 hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Login') }}
                     </a>
                     <a href="{{ route('register') }}"
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white bg-opacity-80 hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Register') }}
                     </a>
                 @endif
@@ -89,7 +90,7 @@
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = !open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-white transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -127,8 +128,8 @@
         <div class="pt-4 pb-1 border-t border-gray-200">
             @auth
                 <div class="px-4">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-slate-400">{{ Auth::user()->email }}</div>
                 </div>
 
                 <div class="mt-3 space-y-1">

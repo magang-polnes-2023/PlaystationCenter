@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <div class="mt-7 bg-cover bg-fixed bg-center h-full"
-    style="background-image: url('{{ asset('/assets/images/bg.png') }}'); "">
+        style="background-image: url('{{ asset('/assets/images/bg.png') }}'); "">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center items-center">
                 <div class="bg-white bg-opacity-90 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 px-12 mb-5">
@@ -30,7 +30,8 @@
                     </div>
                     @if ($booking->payment)
                         @if ($booking->status == 'Belum dibayar')
-                            <p class="pb-2 text-center text-gray-600 italic">Keterangan: Silahkan menunggu response admin jika anda suda
+                            <p class="pb-2 text-center text-gray-600 italic">Keterangan: Silahkan menunggu response
+                                admin jika anda suda
                                 melakukan pembayaran</p>
                             <div class="flexjustify-center items-center pt-2">
                                 <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
@@ -43,6 +44,10 @@
                                 pembayaran
                                 <span class="font-bold text-black">qris</span> silahkan datang tepat waktu!
                             </p>
+                            <p class="py-2 text-center text-gray-600 italic">Jika anda ingin membatalkan pesanan maka
+                                hubungi admin <span class="font-bold text-black">089603874890</span> di nomor wa
+                                tersebut!
+                            </p>
                             <div class="flexjustify-center items-center pt-2">
                                 <img src="{{ asset('storage/' . $booking->payment) }}" alt="" width="350px"
                                     class="mx-auto">
@@ -50,7 +55,8 @@
                             <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
                         @endif
                         @if ($booking->status == 'Digunakan')
-                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keteranga: Anda sedang memainkan
+                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keteranga: Anda sedang
+                                memainkan
                                 playstation yang anda booking
                             </p>
                             <div class="flexjustify-center items-center pt-2">
@@ -60,7 +66,8 @@
                             <p class="pb-6 text-center text-black italic">bukti pembayaran</p>
                         @endif
                         @if ($booking->status == 'Selesai')
-                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keterangan: Anda Telah Menyelesaikan
+                            <p class="pb-2 text-center text-gray-600 italic font-semibold">Keterangan: Anda Telah
+                                Menyelesaikan
                                 booking
                             </p>
                             <div class="flexjustify-center items-center pt-2">

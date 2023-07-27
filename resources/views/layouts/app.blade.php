@@ -19,9 +19,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased">
-    <div class="bg-cover bg-fixed bg-center h-screen"
-    style="background-image: url('{{ asset('/assets/images/bg.png') }}');">
+<body class="font-sans antialiased bg-cover bg-fixed bg-center h-screen md:h-full"
+style="background-image: url('{{ asset('/assets/images/bg.png') }}');">
+    <div>
         @include('layouts.navigation')
 
         <!-- Page Heading -->

@@ -7,7 +7,7 @@
         </x-slot>
         <div class="my-12">
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white bg-opacity-80 text-lg overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg hover:scale-105 transition duration-500">
                     <div class="p-6 text-black">
                         <h1 class="font-bold text-xl text-center mb-4">How To Make A Booking And Payment</h1>
                         <p>1. You must have an account.</p>
