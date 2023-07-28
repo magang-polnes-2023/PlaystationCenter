@@ -19,21 +19,14 @@ class BookingController extends Controller
         $user = Auth::User();
         $prefix = 'ORD-PS-';
 
-        $latestBooking = Booking::orderBy('id', 'desc')->first();
-
-        if ($latestBooking) {
-            $bookingNumber = intval(substr($latestBooking->booking_code, strlen($prefix)));
-            $bookingNumber++;
-        } else {
-            $bookingNumber = 1;
-        }
-
-        $bookingCode = $prefix . str_pad($bookingNumber, 4, '0', STR_PAD_LEFT);
+        $latestBooking = Booking::orderByDesc('id')->first();
+        $increment = $latestBooking ? intval(substr($latestBooking->booking_code, -3)) + 1 : 1;
+        $bookingCode = $prefix . str_pad($increment, 3, '0', STR_PAD_LEFT);
 
         $bookedTimes = Booking::select('booking_date', 'start_time', 'end_time')
-                    ->where('playstation_id', $playstation->id)
-                    ->whereNotIn('status', ['Selesai'])
-                    ->get();
+            ->where('playstation_id', $playstation->id)
+            ->whereNotIn('status', ['Selesai', 'Cancel'])
+            ->get();
 
         return view('order.booking', compact('playstation', 'listgame', 'user', 'bookedTimes', 'bookingCode'));
     }

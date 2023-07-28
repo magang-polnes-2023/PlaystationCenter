@@ -58,22 +58,6 @@ class BookingResource extends Resource
                             ->relationship('user', 'name')
                             ->required(),
                         TextInput::make('booking_code')
-                            ->afterStateHydrated(function (TextInput $component, $state) {
-                                $prefix = 'ORD-PS-';
-
-                                $latestBooking = Booking::orderBy('id', 'desc')->first();
-
-                                if ($latestBooking) {
-                                    $bookingNumber = intval(substr($latestBooking->booking_code, strlen($prefix)));
-                                    $bookingNumber++;
-                                } else {
-                                    $bookingNumber = 1;
-                                }
-
-                                $bookingCode = $prefix . str_pad($bookingNumber, 4, '0', STR_PAD_LEFT);
-
-                                $component->state($bookingCode);
-                            })
                             ->label('Booking Code')
                             ->unique()
                             ->required(),
@@ -90,6 +74,9 @@ class BookingResource extends Resource
                         TimePicker::make('end_time')
                             ->label('Waktu Selesai')
                             ->required(),
+                        TextInput::make('total_pay')
+                            ->label('Harga Total')
+                            ->required(),
                         FileUpload::make('payment')
                             ->label('Bukti bayar'),
                         Select::make('status')
@@ -97,7 +84,8 @@ class BookingResource extends Resource
                                 'Belum dibayar' => 'Belum Dibayar',
                                 'Sudah dibayar' => 'Sudah Dibayar',
                                 'Digunakan' => 'Digunakan',
-                                'Selesai' => 'Selesai'
+                                'Selesai' => 'Selesai',
+                                'Cancel' => 'Cancel'
                             ]),
                     ])
             ]);
@@ -126,6 +114,12 @@ class BookingResource extends Resource
                     ->Label('Tanggal Booking'),
                 TextColumn::make('booking_duration')
                     ->Label('Durasi Booking'),
+                TextColumn::make('start_time')
+                    ->label('Jam mulai'),
+                TextColumn::make('end_time')
+                    ->label('Jam Selesai'),
+                TextColumn::make('total_pay')
+                    ->label('Total Harga'),
                 ImageColumn::make('payment')
                     ->Label('Bukti Pembayaran'),
                 SelectColumn::make('status')
@@ -133,11 +127,12 @@ class BookingResource extends Resource
                         'Belum dibayar' => 'Belum Dibayar',
                         'Sudah dibayar' => 'Sudah Dibayar',
                         'Digunakan' => 'Digunakan',
-                        'Selesai' => 'Selesai'
+                        'Selesai' => 'Selesai',
+                        'Cancel' => 'Cancel'
                     ])
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

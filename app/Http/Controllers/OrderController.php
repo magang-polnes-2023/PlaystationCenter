@@ -32,6 +32,7 @@ class OrderController extends Controller
         $booking = Booking::with('user', 'playstation')
             ->where('user_id', $user->id)
             ->latest()
+            ->withTrashed()
             ->paginate(5);
 
         return view('order.order', compact('booking'));
@@ -40,65 +41,31 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'playstation_id' => 'required',
-            'user_id' => 'required',
-            'booking_code' => 'required',
-            'booking_date' => 'required',
-            'booking_duration' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'total_pay' => 'required',
             'payment' => 'required|image|max:2048',
         ]);
 
         $booking = Booking::findOrFail($id);
 
-        if ($request->hasFile('payment')) {
+        $payment = $request->file('payment');
+        $payment->storeAs('public/', $payment->hashName());
 
-            $payment = $request->file('payment');
-            $payment->storeAs('public/', $payment->hashName());
+        Storage::delete('public/' . $booking->payment);
 
-            Storage::delete('public/' . $booking->payment);
-
-            $booking->update([
-                'playstation_id' => $request->playstation_id,
-                'user_id' => $request->user_id,
-                'booking_code' => $request->booking_code,
-                'booking_date' => $request->booking_date,
-                'booking_duration' => $request->booking_duration,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'total_pay' => $request->total_pay,
-                'payment' => $payment->hashName()
-            ]);
-        } else {
-            $booking->update([
-                'playstation_id' => $request->playstation_id,
-                'user_id' => $request->user_id,
-                'booking_code' => $request->booking_code,
-                'booking_date' => $request->booking_date,
-                'booking_duration' => $request->booking_duration,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
-                'total_pay' => $request->total_pay,
-            ]);
-        }
+        $booking->update([
+            'payment' => $payment->hashName()
+        ]);
 
         return redirect()->route('order.order')->with(['success' => 'Booking payment updated successfully!']);
     }
 
-    public function delete(string $id)
+    public function cancle(string $id)
     {
         $booking = Booking::findOrFail($id);
 
-        // Hapus file payment dari storage jika ada
-        if ($booking->payment) {
-            Storage::delete('public/' . $booking->payment);
-        }
+        $booking->update([
+            'status' => 'Cancel'
+        ]);
 
-        $booking->delete();
-
-        return redirect()->route('order.order')->with(['success' => 'Booking deleted successfully!']);
+        return redirect()->route('order.order')->with(['success' => 'Booking cancelled successfully!']);
     }
-    
 }

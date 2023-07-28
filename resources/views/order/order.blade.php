@@ -44,37 +44,24 @@
                                     <td class="border border-black px-4 py-2 text-center">{{ $loop->iteration }}</td>
                                     <td class="border border-black px-4 py-2 text-center">{{ $book->booking_code }}</td>
                                     <td class="border border-black px-4 py-2 text-center">{{ $book->user->name }}</td>
-                                    <td class="border border-black px-4 py-2 text-center">{{ $book->playstation->name }}</td>
-                                    <td class="border border-black px-4 py-2 text-center">{{ $book->booking_date }}, {{ $book->start_time }} - {{ $book->end_time }}</td>
-                                    <td class="border border-black px-4 py-2 text-center">
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->playstation->name }}
+                                    </td>
+                                    <td class="border border-black px-4 py-2 text-center">{{ $book->booking_date }},
+                                        {{ $book->start_time }} - {{ $book->end_time }}</td>
+                                    <td class="border border-black px-4 py-2 text-center align-middle">
                                         <!-- File Upload Form -->
                                         @if ($book->payment)
                                             <!-- Tampilkan gambar payment jika ada -->
                                             <img src="{{ asset('storage/' . $book->payment) }}" width="100"
                                                 height="100" class="mx-auto">
+                                        @elseif ($book->status == 'Cancel')
                                         @else
                                             <form action="{{ route('upload', ['id' => $book->id]) }}" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
-                                                <input type="hidden" name="playstation_id"
-                                                    value="{{ $book->playstation->id }}" required>
-                                                <input type="hidden" name="user_id" value="{{ $book->user->id }}"
-                                                    required>
-                                                <input type="hidden" name="booking_code"
-                                                    value="{{ $book->booking_code }}" required>
-                                                <input type="hidden" name="booking_date"
-                                                    value="{{ $book->booking_date }}" required>
-                                                <input type="hidden" name="booking_duration"
-                                                    value="{{ $book->booking_duration }}" required>
-                                                <input type="hidden" name="start_time" value="{{ $book->start_time }}"
-                                                    required>
-                                                <input type="hidden" name="end_time" value="{{ $book->end_time }}"
-                                                    required>
-                                                <input type="hidden" name="total_pay" value="{{ $book->total_pay }}"
-                                                    required>
-                                                <div class="flex gap-4">
-                                                    <div class="mb-4 flex-1">
+                                                <div class="flex">
+                                                    <div>
                                                         <input type="file" name="payment" id="payment"
                                                             class="rounded-md p-2 w-full" required>
                                                         @error('payment')
@@ -82,10 +69,18 @@
                                                         @enderror
                                                     </div>
                                                     <div>
-                                                        <button type="submit"
-                                                            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-4 rounded">
+                                                        <button type="submit" id="submit"
+                                                            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-4 mt-2 rounded">
                                                             Submit
                                                         </button>
+                                                        <script>
+                                                            document.getElementById("submit").onclick = function(event) {
+                                                                if (!confirm("Apakah bukti pembayaran sudah benar?")) {
+                                                                    event.preventDefault();
+                                                                } else {
+                                                                }
+                                                            };
+                                                        </script>
                                                     </div>
                                                 </div>
                                                 @if ($errors->any())
@@ -101,26 +96,27 @@
                                         @endif
                                     </td>
                                     <td class="border border-black px-4 py-2 text-center">{{ $book->status }}</td>
-                                    <td class="border border-black px-4 py-2">
+                                    <td class="border border-black px-4 py-2 text-center">
                                         @if ($book->payment)
                                             <a href="{{ route('order.view', ['id' => $book->id]) }}"
                                                 class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded">View</a>
+                                        @elseif ($book->status == 'Cancel')
                                         @else
                                             <div class="flex">
                                                 <a href="{{ route('order.view', ['id' => $book->id]) }}"
                                                     class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-1 px-4 rounded mr-3">View</a>
                                                 <form id="delete-form"
-                                                    action="{{ route('order.delete', ['id' => $book->id]) }}"
+                                                    action="{{ route('order.cancle', ['id' => $book->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="return confirmDelete()"
-                                                        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded">Hapus</button>
+                                                        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-4 rounded">Cancle</button>
                                                 </form>
 
                                                 <script>
                                                     function confirmDelete() {
-                                                        var result = confirm("Are you sure you want to delete this booking?");
+                                                        var result = confirm("Are you sure you want to cancel this booking?");
                                                         return result;
                                                     }
                                                 </script>

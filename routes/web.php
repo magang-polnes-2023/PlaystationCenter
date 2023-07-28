@@ -41,6 +41,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->get('/order', [OrderController::class, 'order'])->name('order.order');
 Route::put('/order/{id}', [OrderController::class, 'update'])->name('upload');
 Route::get('/order/view/{id}', [OrderController::class, 'index'])->name('order.view');
-Route::delete('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
+Route::delete('/order/{id}', [OrderController::class, 'cancle'])->name('order.cancle');
 
 require __DIR__ . '/auth.php';

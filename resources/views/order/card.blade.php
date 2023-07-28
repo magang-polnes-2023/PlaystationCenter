@@ -44,7 +44,7 @@
                                 pembayaran
                                 <span class="font-bold text-black">qris</span> silahkan datang tepat waktu!
                             </p>
-                            <p class="py-2 text-center text-gray-600 italic">Jika anda ingin membatalkan pesanan maka
+                            <p class="text-center text-gray-600 italic">Jika anda ingin membatalkan pesanan maka
                                 hubungi admin <span class="font-bold text-black">089603874890</span> di nomor wa
                                 tersebut!
                             </p>

@@ -23,7 +23,7 @@
                             disabled>
                     </div>
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Price:</label>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Price/jam:</label>
                         <input type="text" name="price" id="price"
                             class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
                             placeholder="Enter the Playstation Type" value="{{ $playstation->price }}" x-model="price"
@@ -70,7 +70,7 @@
                             <input
                                 class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
                                 type="date" id="booking_date" name="booking_date" x-model="bookingDate"
-                                x-on:change="validateEndTime">
+                                x-on:change="validateEndTime" min="{{ date('Y-m-d') }}">
                         </div>
                         <div class="mb-4">
                             <label for="booking_duration" class="block text-gray-700 text-sm font-bold mb-2">Booking
@@ -122,7 +122,7 @@
                                 <h1 class="font-semibold text-black">Booked List</h1>
                                 @foreach ($bookedTimes as $booked)
                                     <p class="text-gray-500">Date: {{ $booked->booking_date }} and Hours:
-                                        {{ $booked->start_time }} - {{ $booked->start_time }}</p>
+                                        {{ $booked->start_time }} - {{ $booked->end_time }}</p>
                                     </Jam,>
                                 @endforeach
                             </div>
