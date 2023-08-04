@@ -1,6 +1,4 @@
-<nav x-data="{ open: false }"
-    class="border-b sticky top-0 transition bg-cover bg-fixed bg-top backdrop-blur-sm"
-    style="background-image: url('{{ asset('/assets/images/bg.png') }}');">
+<nav x-data="{ open: false }" class="border-b sticky top-0 transition bg-top bg-black">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -18,11 +16,6 @@
                         <p class="text-white hover:text-blue-100">Playstation Center</p>
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
-                        <p class="text-white hover:text-blue-100">How To Booking</p>
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -33,7 +26,7 @@
                         <x-slot name="trigger">
                             <!-- Code for the trigger button -->
                             <button
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white bg-opacity-80 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                 <div>{{ Auth::user()->name }}</div>
 
                                 <div class="ml-1">
@@ -50,9 +43,8 @@
                         <!-- Code for the dropdown content -->
                         <x-slot name="content">
                             @if (auth()->user()->role === 'admin')
-                                <x-dropdown-link>
-                                    <a href="/admin" class="ml-3">{{ __('Dashboard') }}</a>
-                                </x-dropdown-link>
+                                <a href="/admin"
+                                    class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">{{ __('Dashboard') }}</a>
                             @endif
 
                             <x-dropdown-link :href="route('profile.edit')">
@@ -77,11 +69,11 @@
                     </x-dropdown>
                 @else
                     <a href="{{ route('login') }}"
-                        class="inline-flex items-center px-3 py-2 mr-3 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white bg-opacity-80 hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 mr-3 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Login') }}
                     </a>
                     <a href="{{ route('register') }}"
-                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white bg-opacity-80 hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
+                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white hover:text-slate-900 focus:outline-none transition ease-in-out duration-150">
                         {{ __('Register') }}
                     </a>
                 @endif
@@ -110,16 +102,9 @@
                 <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Playstation Center') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
-                    {{ __('How To Booking') }}
-                </x-responsive-nav-link>
             @else
-                <!-- Tampilkan tautan menu jika pengguna sudah login -->
                 <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Playstation Center') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('howtobook')" :active="request()->routeIs('howtobook')">
-                    {{ __('How To Booking') }}
                 </x-responsive-nav-link>
             @endguest
         </div>
@@ -131,7 +116,11 @@
                     <div class="font-medium text-base text-white">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-slate-400">{{ Auth::user()->email }}</div>
                 </div>
-
+                @if (auth()->user()->role === 'admin')
+                    <x-responsive-nav-link>
+                        <a href="/admin" class="ml-3 text-white">{{ __('Dashboard') }}</a>
+                    </x-responsive-nav-link>
+                @endif
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}

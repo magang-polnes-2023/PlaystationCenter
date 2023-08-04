@@ -1,27 +1,12 @@
 <x-app-layout>
-    <div>
-        <x-slot name="header">
-            <h2 class="font-bold text-2xl text-black leading-tight text-center">
-                Choose your Playstation!
-            </h2>
-        </x-slot>
-        <div class="my-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-black">
-                        <h1 class="text-center text-xl font-semibold pb-2">Website Booking Playstation</h1>
-                        <p class="text-center">Menyediakan layanan untuk booking secara online dengan menggunkaan website
-                        </p>
-                        <p class="text-center">Silahkan pilih playstations yang akan kalian mainkan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="flex flex-wrap items-center gap-7 pb-12">
+    <x-slot name="header">
+        <h1 class="font-bold text-4xl pb-2 text-center text-black">List Playstation</h1>
+        <h2 class="text-sm text-center text-black pb-14">Book your playstation here!</h2>
+        <div class="flex flex-wrap mx-auto gap-6 pb-12 max-w-7xl">
             @foreach ($playstation as $ps)
                 @if ($ps->status === 'tersedia')
                     <div x-data="{ 'isModalOpen': false }" x-on:keydown.escape="isModalOpen=false"
-                        class="max-w-xl mx-auto sm:max-w-md md:max-w-xs bg-white bg-opacity-80 rounded-lg shadow-md">
+                        class="mx-auto sm:max-w-md md:max-w-xs bg-white bg-opacity-80 rounded-lg shadow-xl">
                         <img src="{{ asset('storage/' . $ps->image) }}"
                             class="w-full h-32 sm:h-40 object-cover rounded-t-lg">
                         <div class="p-4">
@@ -36,7 +21,7 @@
                             <div class="bg-white rounded-lg p-4 w-full sm:w-96">
                                 <h2 class="text-lg font-semibold mb-2 text-center">{{ $ps->name }}</h2>
                                 <img src="{{ asset('storage/' . $ps->image) }}"
-                                    class="w-full h-32 sm:h-40 object-cover rounded-t-lg">
+                                    class="w-full sm:h-full object-cover rounded-t-lg">
                                 <p class="text-gray-700 mb-2">Rp.{{ $ps->price }}/jam</p>
                                 <p class="text-black mb-2 font-semibold">Type : {{ $ps->playstation_type }}</p>
                                 <ul class="text-black mb-2">
@@ -79,5 +64,5 @@
                 @endif
             @endforeach
         </div>
-    </div>
+    </x-slot>
 </x-app-layout>

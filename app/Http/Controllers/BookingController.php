@@ -55,13 +55,11 @@ class BookingController extends Controller
         ]);
 
         try {
-            // Fetch the booking and playstation data based on the booking code.
             $booking = Booking::where('booking_code', $request->booking_code)->firstOrFail();
 
-            // Assuming you have an "order.card" view to display the details.
             return view('order.card', compact('booking'));
         } catch (ModelNotFoundException $e) {
-            // Handle the case if the booking with the provided code is not found.
+            
             return redirect()->route('home')->with(['error' => 'Booking not found']);
         }
     }

@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'welcome']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -30,7 +28,6 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/home/booking/{id}', [BookingController::class, 'create'])->name('booking');
 Route::post('/home/booking/card', [BookingController::class, 'store'])->name('card');
-Route::get('/howtobook', [HomeController::class, 'howtobook'])->name('howtobook');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

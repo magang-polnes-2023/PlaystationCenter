@@ -18,7 +18,7 @@ class OrderController extends Controller
 
         $booking = Booking::findOrFail($id);
 
-        return view('order.card', compact('booking'));
+        return view('order.card', compact('booking'));  
     }
 
     /**

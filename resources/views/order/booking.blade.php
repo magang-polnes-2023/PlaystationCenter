@@ -4,133 +4,144 @@
             Input Form to order
         </h2>
     </x-slot>
-    <div class="my-10 bg-cover bg-fixed bg-center h-full"
-    style="background-image: url('{{ asset('/assets/images/bg.png') }}'); ">
-        <div x-data="calc()" x-effect="updateEndTime" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-7">
-                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-                    <div class="mb-4">
-                        <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
-                        <input type="text" id="user_id" name="user_id"
-                            class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                            placeholder="Enter your name" value="{{ auth()->user()->name }}" disabled>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Playstation Type:</label>
-                        <input type="text" name="playstation_type"
-                            class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                            placeholder="Enter the Playstation Type" value="{{ $playstation->playstation_type }}"
-                            disabled>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Price/jam:</label>
-                        <input type="text" name="price" id="price"
-                            class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                            placeholder="Enter the Playstation Type" value="{{ $playstation->price }}" x-model="price"
-                            disabled>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Image:</label>
-                        <div class="flex items-center justify-center h-full">
-                            <img src="{{ asset('storage/' . $playstation->image) }}" alt="" width="350px">
+    <div class="container">
+        <div class="my-10 max-w-full">
+            <div x-data="calc()" x-effect="updateEndTime" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-7">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                        <div class="mb-4">
+                            <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                            <input type="text" id="user_id" name="user_id"
+                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                placeholder="Enter your name" value="{{ auth()->user()->name }}" disabled>
                         </div>
-                    </div>
-                </div>
-                <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-                    <form action="{{ route('card') }}" method="POST">
-                        @if ($errors->any())
-                            <div class="bg-red-500 text-white p-4 mt-3 rounded" role="alert" id="danger-alert">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Playstation Type:</label>
+                            <input type="text" name="playstation_type"
+                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                placeholder="Enter the Playstation Type" value="{{ $playstation->playstation_type }}"
+                                disabled>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Price/jam:</label>
+                            <input type="text" name="price" id="price"
+                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                placeholder="Enter the Playstation Type" value="{{ $playstation->price }}"
+                                x-model="price" disabled>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Image:</label>
+                            <div class="flex items-center justify-center h-full">
+                                <img src="{{ asset('storage/' . $playstation->image) }}" alt="" width="350px">
                             </div>
-                            <script>
-                                setTimeout(function() {
-                                    var successAlert = document.getElementById('danger-alert');
-                                    successAlert.style.display = 'none';
-                                }, 5000);
-                            </script>
-                        @endif
-                        @csrf
-                        @method('POST')
-                        <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
-                        <input type="hidden" name="playstation_id" id="playstation_id" value="{{ $playstation->id }}">
-                        <div class="mb-4">
-                            <label for="booking_code" class="block text-gray-700 text-sm font-bold mb-2">Booking
-                                Code:</label>
-                            <input type="text" id="booking_code" name="booking_code"
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                placeholder="Enter the Booking Date" required value="{{ $bookingCode }}" readonly>
                         </div>
-                        <div class="mb-4">
-                            <label for="booking_date" class="block text-gray-700 text-sm font-bold mb-2">Booking
-                                Date:</label>
-                            <input
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                type="date" id="booking_date" name="booking_date" x-model="bookingDate"
-                                x-on:change="validateEndTime" min="{{ date('Y-m-d') }}">
-                        </div>
-                        <div class="mb-4">
-                            <label for="booking_duration" class="block text-gray-700 text-sm font-bold mb-2">Booking
-                                Duration: /jam</label>
-                            <input type="text" pattern="[1-9]" maxlength="1" id="booking_duration"
-                                name="booking_duration"
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                placeholder="Enter the Booking Duration" x-model="bookingDuration" required
-                                value="{{ old('booking_duration') }}" x-on:change="validateEndTime">
-                        </div>
-                        <div class="mb-4">
-                            <label for="start_time" class="block text-gray-700 text-sm font-bold mb-2">Start
-                                Time:</label>
-                            <input
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                type="time" id="start_time" name="start_time" x-model="startTime"
-                                x-on:change="validateEndTime">
-                        </div>
-                        <div class="mb-4">
-                            <label for="end_time" class="block text-gray-700 text-sm font-bold mb-2">End Time:</label>
-                            <input
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                type="time" id="end_time" name="end_time" x-bind:min="startTime"
-                                x-model="endTime" readonly>
-                        </div>
-                        <div class="mb-4">
-                            <label for="total_pay" class="block text-gray-700 text-sm font-bold mb-2">Total
-                                Pay:</label>
-                            <input type="text" id="total_pay" name="total_pay"
-                                class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
-                                placeholder="Enter the Total Pay" required value="{{ old('total_pay') }}"
-                                x-bind:value="total_pay.toFixed(0)" readonly>
-                        </div>
-                        <div class="flex justify-left">
-                            <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                        <form action="{{ route('card') }}" method="POST">
+                            @if ($errors->any())
+                                <div class="bg-red-500 text-white p-4 mt-3 rounded" role="alert" id="danger-alert">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <script>
+                                    setTimeout(function() {
+                                        var successAlert = document.getElementById('danger-alert');
+                                        successAlert.style.display = 'none';
+                                    }, 5000);
+                                </script>
+                            @endif
+                            @csrf
+                            @method('POST')
+                            <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+                            <input type="hidden" name="playstation_id" id="playstation_id"
+                                value="{{ $playstation->id }}">
+                            <div class="mb-4">
+                                <label for="booking_code" class="block text-gray-700 text-sm font-bold mb-2">Booking
+                                    Code:</label>
+                                <input type="text" id="booking_code" name="booking_code"
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter the Booking Date" required value="{{ $bookingCode }}" readonly>
+                            </div>
+                            <div class="mb-4">
+                                <label for="booking_date" class="block text-gray-700 text-sm font-bold mb-2">Booking
+                                    Date:</label>
+                                <input
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    type="date" id="booking_date" name="booking_date" x-model="bookingDate"
+                                    x-on:change="validateEndTime" min="{{ date('Y-m-d') }}">
+                            </div>
+                            <div class="mb-4">
+                                <label for="booking_duration" class="block text-gray-700 text-sm font-bold mb-2">Booking
+                                    Duration: /jam</label>
+                                <input type="text" pattern="[1-9]" maxlength="1" id="booking_duration"
+                                    name="booking_duration"
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter the Booking Duration" x-model="bookingDuration" required
+                                    value="{{ old('booking_duration') }}" x-on:change="validateEndTime">
+                            </div>
+                            <div class="mb-4">
+                                <label for="start_time" class="block text-gray-700 text-sm font-bold mb-2">Start
+                                    Time:</label>
+                                <input
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    type="time" id="start_time" name="start_time" x-model="startTime"
+                                    x-on:change="validateEndTime">
+                            </div>
+                            <div class="mb-4">
+                                <label for="end_time" class="block text-gray-700 text-sm font-bold mb-2">End
+                                    Time:</label>
+                                <input
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    type="time" id="end_time" name="end_time" x-bind:min="startTime"
+                                    x-model="endTime" readonly>
+                            </div>
+                            <div class="mb-4">
+                                <label for="total_pay" class="block text-gray-700 text-sm font-bold mb-2">Total
+                                    Pay:</label>
+                                <input type="text" id="total_pay" name="total_pay"
+                                    class="w-full border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500"
+                                    placeholder="Enter the Total Pay" required value="{{ old('total_pay') }}"
+                                    x-bind:value="total_pay.toFixed(0)" readonly>
+                            </div>
+                            <div class="flex justify-left">
+                                <button type="submit"
+                                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
+
             @if (count($bookedTimes) > 0)
-                <div class="my-5">
+                <div class="my-5 sm:my-5 max-w-7xl mx-auto">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white bg-opacity-80 overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8">
                             <!-- Display bookedTimes using <p> elements -->
                             <div class="text-center">
                                 <h1 class="font-semibold text-black">Booked List</h1>
                                 @foreach ($bookedTimes as $booked)
-                                    <p class="text-gray-500">Date: {{ $booked->booking_date }} and Hours:
-                                        {{ $booked->start_time }} - {{ $booked->end_time }}</p>
-                                    </Jam,>
+                                    @php
+                                        $today = now()->format('Y-m-d');
+                                        
+                                        $bookedDate = $booked->booking_date;
+                                    @endphp
+
+                                    @if ($bookedDate >= $today)
+                                        <p class="text-gray-500">Date: {{ $bookedDate }} and Hours:
+                                            {{ $booked->start_time }} - {{ $booked->end_time }}</p>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             @else
-                <div class="my-5">
+                <div class="my-5 sm:my-5 mx- auto">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="text-center">

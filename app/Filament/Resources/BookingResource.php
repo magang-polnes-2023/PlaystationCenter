@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use PhpParser\Node\Stmt\Label;
 use stdClass;
+use Illuminate\Support\Str;
+use Filament\Forms\Get;
 
 class BookingResource extends Resource
 {
@@ -45,6 +48,11 @@ class BookingResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $prefix = 'ORD-PS-';
+        $latestBooking = Booking::orderByDesc('id')->first();
+        $increment = $latestBooking ? intval(substr($latestBooking->booking_code, -3)) + 1 : 1;
+        $bookingCode = $prefix . str_pad($increment, 3, '0', STR_PAD_LEFT);
+
         return $form
             ->schema([
                 Card::make()
@@ -59,21 +67,27 @@ class BookingResource extends Resource
                             ->required(),
                         TextInput::make('booking_code')
                             ->label('Booking Code')
-                            ->unique()
+                            ->unique(ignorable: fn ($record) => $record)
+                            ->default($bookingCode)
                             ->required(),
                         DatePicker::make('booking_date')
                             ->label('Tanggal Booking')
                             ->required(),
                         TextInput::make('booking_duration')
                             ->label('Durasi Booking (satuan jam')
+                            ->id('booking_duration')
                             ->required()
                             ->numeric(),
                         TimePicker::make('start_time')
+                            ->reactive()
+                            ->id('start_time')
                             ->label('Waktu Mulai')
                             ->required(),
                         TimePicker::make('end_time')
                             ->label('Waktu Selesai')
-                            ->required(),
+                            ->id('end_time')
+                            ->required()
+                            ->reactive(),
                         TextInput::make('total_pay')
                             ->label('Harga Total')
                             ->required(),
@@ -129,8 +143,10 @@ class BookingResource extends Resource
                         'Digunakan' => 'Digunakan',
                         'Selesai' => 'Selesai',
                         'Cancel' => 'Cancel'
-                    ])
-            ])
+                    ]),
+                TextColumn::make('updated_at')
+                    ->label('Updated_at'),
+            ])->defaultSort('updated_at')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

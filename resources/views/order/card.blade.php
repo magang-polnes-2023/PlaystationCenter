@@ -1,15 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-center text-xl text-blue-400 leading-tight">
+        <h2 class="font-semibold text-center text-xl text-black leading-tight">
             Order Transaction
         </h2>
     </x-slot>
-    <div class="mt-7 bg-cover bg-fixed bg-center h-full"
-        style="background-image: url('{{ asset('/assets/images/bg.png') }}'); "">
+    <div class="mt-7 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center items-center">
-                <div class="bg-white bg-opacity-90 overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 px-12 mb-5">
-                    <h1 class="text-center font-bold pb-1 text-2xl text-blue-400">Transaction Information!</h1>
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 px-12 mb-5">
+                    <h1 class="text-center font-bold pb-1 text-2xl">Transaction Information!</h1>
                     <p class="pb-5 text-center">Pembayaran anda berstatus <span
                             class="font-bold">{{ $booking->status }}</span></p>
                     <div class="grid grid-cols-2 gap-2 mb-4">
@@ -26,7 +25,7 @@
                         <div class="font-semibold">Total Pay</div>
                         <div>: {{ $booking->total_pay }}</div>
                         <div class="font-semibold">Status</div>
-                        <div>: <span class="text-blue-400 font-semibold">{{ $booking->status }}</span></div>
+                        <div>: <span class="font-semibold">{{ $booking->status }}</span></div>
                     </div>
                     @if ($booking->payment)
                         @if ($booking->status == 'Belum dibayar')
