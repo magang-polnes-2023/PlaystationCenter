@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -41,7 +42,7 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make('User Information')
                     ->schema([
                         TextInput::make('name')
                             ->required(),

@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -46,7 +47,7 @@ class PlaystationResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make('Playstation Details')
                     ->schema([
                         TextInput::make('name')
                             ->required(),
@@ -72,8 +73,7 @@ class PlaystationResource extends Resource
                                 'tersedia' => 'Tersedia',
                                 'tidak tersedia' => 'Tidak tersedia',
                             ])->label('Status')->required(),
-
-                    ]),
+                    ])
             ]);
     }
 
@@ -92,7 +92,8 @@ class PlaystationResource extends Resource
                 ImageColumn::make('image'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('listgame.name'),
+                TextColumn::make('listgame.name')
+                    ->limit(30),
                 TextColumn::make('price')
                     ->label('Harga/jam'),
                 SelectColumn::make('status')

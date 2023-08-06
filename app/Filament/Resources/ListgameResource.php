@@ -9,6 +9,7 @@ use App\Models\Listgame;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -42,7 +43,7 @@ class ListgameResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make('Game')
                     ->schema([
                         TextInput::make('name')->required()
                             ->reactive()
@@ -50,7 +51,7 @@ class ListgameResource extends Resource
                                 $set('slug', \Str::slug($state));
                             })->required(),
                         TextInput::make('slug')->required()
-                    ])
+                    ]),
             ]);
     }
 
