@@ -19,15 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'welcome']);
+Route::get('/', [HomeController::class, 'home']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home/booking/{id}', [BookingController::class, 'create'])->name('booking');
-Route::post('/home/booking/card', [BookingController::class, 'store'])->name('card');
+Route::get('/playstation', [HomeController::class, 'index'])->name('playstation');
+Route::get('/playstation/booking/{id}', [BookingController::class, 'create'])->name('booking');
+Route::post('/playstation/booking/card', [BookingController::class, 'store'])->name('card');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,9 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->get('/order', [OrderController::class, 'order'])->name('order.order');
-Route::put('/order/{id}', [OrderController::class, 'update'])->name('upload');
-Route::get('/order/view/{id}', [OrderController::class, 'index'])->name('order.view');
-Route::delete('/order/{id}', [OrderController::class, 'cancle'])->name('order.cancle');
+Route::middleware('auth')->get('/history', [OrderController::class, 'order'])->name('order.order');
+Route::put('/history/{id}', [OrderController::class, 'update'])->name('upload');
+Route::get('/history/view/{id}', [OrderController::class, 'index'])->name('order.view');
+Route::delete('/history/{id}', [OrderController::class, 'cancle'])->name('order.cancle');
 
 require __DIR__ . '/auth.php';

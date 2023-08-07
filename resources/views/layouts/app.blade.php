@@ -15,18 +15,24 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    {{-- Animate Refresh --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    {{-- Animate OnScroll --}}
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-black bg-cover bg-fixed bg-center h-screen"
-style="background-image: url('{{ asset('/assets/images/bg2.png') }}');"">
+<body class="font-sans antialiased bg-black bg-cover bg-fixed bg-center h-screen overflow-x-hidden"
+    style="background-image: url('{{ asset('/assets/images/bg2.png') }}');"">
     <div>
         @include('layouts.navigation')
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-white shadow">
+            <header class="bg-white shadow animate__animated animate__fadeIn animate__delay-1s">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -39,7 +45,7 @@ style="background-image: url('{{ asset('/assets/images/bg2.png') }}');"">
         </main>
 
         {{-- Page Footer --}}
-        <footer class="border-t bottom-0 w-full bg-bottom">
+        <footer class="border-t bottom-0 w-full bg-bottom animate__animated animate__fadeInUp">
             <div class="w-full max-w-screen-xl mx-auto p-4 md:py-4">
                 <div class="flex flex-col items-center">
                     <a href="/" class="flex items-center mb-3 sm:mb-0">
@@ -54,6 +60,10 @@ style="background-image: url('{{ asset('/assets/images/bg2.png') }}');"">
                         class="hover:underline text-center">Playstation Center™</a>. All Rights Reserved.</span>
             </div>
         </footer>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init();
+        </script>
     </div>
 </body>
 

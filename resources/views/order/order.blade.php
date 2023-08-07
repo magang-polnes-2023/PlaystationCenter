@@ -4,7 +4,7 @@
             Booking History
         </h2>
     </x-slot>
-    <div class="container mx-auto mt-8 min-h-screen">
+    <div class="container mx-auto mt-24 min-h-screen animate__animated animate__fadeIn animate__delay-2s">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-7">
             <div class="bg-white overflow-hidden shadow-sm md:rounded-lg overflow-x-auto whitespace-nowrap">
                 <table class="table-auto w-11/12 mx-5 lg:mx-8 my-10 border-collapse">

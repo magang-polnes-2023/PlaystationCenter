@@ -8,7 +8,8 @@
         <div class="my-10 max-w-full">
             <div x-data="calc()" x-effect="updateEndTime" class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-7">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                    <div
+                        class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 animate__animated animate__fadeInLeft animate__delay-1s">
                         <div class="mb-4">
                             <label for="user_id" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
                             <input type="text" id="user_id" name="user_id"
@@ -36,7 +37,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
+                    <div
+                        class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900 animate__animated animate__fadeInRight animate__delay-1s">
                         <form action="{{ route('card') }}" method="POST">
                             @if ($errors->any())
                                 <div class="bg-red-500 text-white p-4 mt-3 rounded" role="alert" id="danger-alert">
@@ -120,7 +122,8 @@
             @if (count($bookedTimes) > 0)
                 <div class="my-5 sm:my-5 max-w-7xl mx-auto">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8">
+                        <div
+                            class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-2 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
                             <!-- Display bookedTimes using <p> elements -->
                             <div class="text-center">
                                 <h1 class="font-semibold text-black">Booked List</h1>
@@ -143,7 +146,8 @@
             @else
                 <div class="my-5 sm:my-5 mx- auto">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div
+                            class="bg-white overflow-hidden shadow-sm sm:rounded-lg animate__animated animate__fadeInUp animate__delay-1s">
                             <div class="text-center">
                                 <p class="text-gray-500 p-2">No booked on this Playstation</p>
                             </div>

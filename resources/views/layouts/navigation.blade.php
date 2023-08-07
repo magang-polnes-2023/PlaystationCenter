@@ -1,4 +1,5 @@
-<nav x-data="{ open: false }" class="border-b sticky top-0 transition bg-top bg-black">
+<nav x-data="{ open: false }"
+    class="border-b sticky w-full z-20 top-0 left-0 transition-all bg-black animate__animated animate__fadeInDown">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -12,7 +13,7 @@
                 </div>
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('playstation')" :active="request()->routeIs('playstation')">
                         <p class="text-white hover:text-blue-100">Playstation Center</p>
                     </x-nav-link>
                 </div>
@@ -99,11 +100,11 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @guest
-                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                <x-responsive-nav-link :href="route('playstation')" :active="request()->routeIs('playstation')">
                     {{ __('Playstation Center') }}
                 </x-responsive-nav-link>
             @else
-                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                <x-responsive-nav-link :href="route('playstation')" :active="request()->routeIs('playstation')">
                     {{ __('Playstation Center') }}
                 </x-responsive-nav-link>
             @endguest

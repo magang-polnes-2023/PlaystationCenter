@@ -1,8 +1,33 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h1 class="font-bold text-4xl pb-2 text-center text-black">List Playstation</h1>
-        <h2 class="text-sm text-center text-black pb-14">Book your playstation here!</h2>
-        <div class="flex flex-wrap mx-auto gap-6 pb-12 max-w-7xl">
+    <section class="container mx-auto py-12">
+        <div class="flex flex-col-reverse md:flex-row">
+            <div
+                class="mx-4 md:w-1/2 text-white my-8 md:my-44 md:ml-40 animate__animated animate__fadeInUp animate__delay-1s">
+                <h2 class="text-3xl md:text-5xl pb-2">Gaming</h2>
+                <h1 class="font-bold text-5xl md:text-7xl pb-2">Playstation <span
+                        class="animate-pulse duration-300">Center</span></h1>
+                <p class="pb-3 animate__animated animate__fadeInLeft animate__delay-1s">Kami adalah layanan rental
+                    PlayStation terkemuka yang menawarkan pengalaman gaming yang
+                    tak terlupakan bagi para pecinta game. Di sini, Anda dapat menikmati beragam koleksi game terbaru
+                    dan klasik dari berbagai genre yang dapat memuaskan hasrat gaming Anda.</p>
+                <a href="/home"
+                    class="bg-gray-100 hover:bg-white text-slate-900 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline block w-32 text-center mx-auto md:mx-0 md:w-auto">Booking</a>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-24 animate__animated animate__zoomIn animate__delay-2s">
+                <img src="{{ asset('assets/images/Playstation.png') }}" alt=""
+                    class="w-52 h-auto mx-auto hover:scale-150 hover:-rotate-12 transition duration-500">
+            </div>
+        </div>
+    </section>
+    <section class="container mx-auto mt-5 pt-11 bg-white" id="listPlaystation">
+        <h1 class="font-bold text-4xl pb-2 text-center text-black" data-aos="fade-down" data-aos-easing="linear"
+            data-aos-duration="1500">
+            List Playstation</h1>
+        <h2 class="text-sm text-center text-black pb-14" data-aos="fade-down" data-aos-easing="linear"
+            data-aos-duration="1500">Book your
+            playstation here!</h2>
+        <div class="flex flex-wrap mx-auto gap-6 pb-12 max-w-7xl" data-aos="fade-up" data-aos-easing="linear"
+            data-aos-duration="2000">
             @foreach ($playstation as $ps)
                 @if ($ps->status === 'tersedia')
                     <div x-data="{ 'isModalOpen': false }" x-on:keydown.escape="isModalOpen=false"
@@ -64,5 +89,5 @@
                 @endif
             @endforeach
         </div>
-    </x-slot>
+    </section>
 </x-app-layout>
