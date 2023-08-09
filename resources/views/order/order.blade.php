@@ -4,10 +4,10 @@
             Booking History
         </h2>
     </x-slot>
-    <div class="container mx-auto mt-24 min-h-screen animate__animated animate__fadeIn animate__delay-2s">
+    <div class="container mx-auto my-20 animate__animated animate__fadeIn animate__delay-2s">
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-7">
             <div class="bg-white overflow-hidden shadow-sm md:rounded-lg overflow-x-auto whitespace-nowrap">
-                <table class="table-auto w-11/12 mx-5 lg:mx-8 my-10 border-collapse">
+                <table class="table-auto w-11/12 mx-5 lg:mx-8 my-10 border-collapse text-black">
                     @if (Session::has('error'))
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
                             role="alert">

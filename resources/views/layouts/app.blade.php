@@ -21,12 +21,20 @@
     {{-- Animate OnScroll --}}
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
+    {{-- Daisyui --}}
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.5.1/dist/full.css" rel="stylesheet" type="text/css" />
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Script Css --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/css/output.css') }}"> --}}
+
+
 </head>
 
-<body class="font-sans antialiased bg-black bg-cover bg-fixed bg-center h-screen overflow-x-hidden"
-    style="background-image: url('{{ asset('/assets/images/bg2.png') }}');"">
+<body class="font-sans antialiased bg-cover bg-fixed bg-center h-full overflow-x-hidden"
+    style="background-image: url('{{ asset('/assets/images/bg2.png') }}');">
     <div>
         @include('layouts.navigation')
 
@@ -45,7 +53,7 @@
         </main>
 
         {{-- Page Footer --}}
-        <footer class="border-t bottom-0 w-full bg-bottom animate__animated animate__fadeInUp">
+        <footer class="border-t bottom-0 w-full bg-bottom animate__animated animate__fadeInUp bg-black">
             <div class="w-full max-w-screen-xl mx-auto p-4 md:py-4">
                 <div class="flex flex-col items-center">
                     <a href="/" class="flex items-center mb-3 sm:mb-0">

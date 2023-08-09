@@ -19,11 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 bg-cover bg-fixed bg-center h-screen"
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0  bg-cover bg-fixed bg-center h-screen"
     style="background-image: url('{{ asset('/assets/images/bg2.png') }}');">
         <div class="animate__animated animate__flipInX animate__delay-1s">
             <a href="/">
